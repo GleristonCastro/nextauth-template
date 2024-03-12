@@ -4,15 +4,12 @@ type Props = {
   children: React.ReactNode
 }
 
-const layout = ({children}: Props) => {
+const AuthLayout = ({children}: Props) => {
   return (
-    <div>
-      <nav className='bg-red-500 text-white'>
-        This is auth nav bar
-      </nav>
+    <div className='h-full flex items-center justify-center bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-sky-400 to-blue-800'>
       {children}
     </div>
   )
 }
 
-export default layout
+export default AuthLayout
