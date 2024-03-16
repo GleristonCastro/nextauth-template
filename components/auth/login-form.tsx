@@ -4,6 +4,7 @@ import * as z from "zod";
 
 import { useState, useTransition } from "react";
 import { useForm } from "react-hook-form";
+import { useSearchParams } from "next/navigation";
 import { zodResolver } from "@hookform/resolvers/zod";
 
 import { LoginSchema } from "@/schemas";
@@ -19,10 +20,13 @@ import {
 import CardWrapper from "@/components/auth/card-wrapper";
 import { Button } from "@/components/ui/button";
 import { FormError } from "@/components/form-error";
-import { FormSuccess } from "@/components/form-sucess";
+import { FormSuccess } from "@/components/form-success";
 import { login } from "@/actions/login";
 
 const LoginForm = () => {
+  const searchParams = useSearchParams();
+  const urlError = searchParams.get("error") === "OAuthAccountNotLinked" ? "Email already in use with different provider!" : ""
+
   const [ error, setError ] = useState<string | undefined>("");
   const [ success, setSuccess ] = useState<string | undefined>("");
   const [isPending, startTransition] = useTransition();
@@ -42,8 +46,8 @@ const LoginForm = () => {
     startTransition(() => {
       login(values)
         .then((data) => {
-          setError(data.error);
-          setSuccess(data.success)
+          setError(data?.error);
+          setSuccess(data?.success)
         });
     });
   };
@@ -98,7 +102,7 @@ const LoginForm = () => {
               )}
             />
           </div>
-          <FormError message={error} />
+          <FormError message={error || urlError} />
           <FormSuccess message={success} />
           <Button
             disabled={isPending}
