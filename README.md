@@ -1,38 +1,97 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Next Auth v5 Template
 
-## Getting Started
+![image](nexthauth5preview.gif)
 
-First, run the development server:
+This is a repository for Next Auth v5
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+Key Features:
+- Next-auth v5 (Auth.js)
+- Next.js 14 with server actions
+- Credentials Provider
+- OAuth Provider (Social login with Google & GitHub)
+- Forgot password functionality
+- Email verification
+- Two factor verification
+- User roles (Admin & User)
+- Login component (Opens in redirect or modal)
+- Register component
+- Forgot password component
+- Verification component
+- Error component
+- Login button
+- Logout button
+- Role Gate
+- Exploring next.js middleware
+- Extending & Exploring next-auth session
+- Exploring next-auth callbacks
+- useCurrentUser hook
+- useRole hook
+- currentUser utility
+- currentRole utility
+- Example with server component
+- Example with client component
+- Render content for admins using RoleGate component
+- Protect API Routes for admins only
+- Protect Server Actions for admins only
+- Change email with new verification in Settings page
+- Change password with old password confirmation in Settings page
+- Enable/disable two-factor auth in Settings page
+- Change user role in Settings page (for development purposes only)
+
+### Prerequisites
+
+**Node version 18.7.x**
+
+### Cloning the repository
+
+```shell
+git clone https://github.com/GleristonCastro/nextauth-template.git
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Install packages
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```shell
+npm i
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+### Setup .env file
 
-## Learn More
 
-To learn more about Next.js, take a look at the following resources:
+```js
+DATABASE_URL=
+DIRECT_URL=
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+AUTH_SECRET=
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+GITHUB_CLIENT_ID=
+GITHUB_CLIENT_SECRET=
 
-## Deploy on Vercel
+GOOGLE_CLIENT_ID=
+GOOGLE_CLIENT_SECRET=
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+RESEND_API_KEY=
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+NEXT_PUBLIC_APP_URL=
+```
 
-1:04:36
+### Setup Prisma
+```shell
+npx prisma generate
+npx prisma db push
+```
+
+Note: The database used was PostgreSQL. To create the system, a Docker image was used. You can consult the official documentation by [clicking here](https://www.docker.com/blog/how-to-use-the-postgres-docker-official-image/).
+
+### Start the app
+
+```shell
+npm run dev
+```
+
+## Available commands
+
+Running commands with npm `npm run [command]`
+
+| command         | description                              |
+| :-------------- | :--------------------------------------- |
+| `dev`           | Starts a development instance of the app |
