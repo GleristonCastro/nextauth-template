@@ -9,10 +9,10 @@ export const getVerificationTokenByToken = async (
     });
 
     return verificationToken;
-  } catch (error) {
+  } catch {
     return null;
-  };
-};
+  }
+}
 
 export const getVerificationTokenByEmail = async (
   email: string
@@ -23,7 +23,7 @@ export const getVerificationTokenByEmail = async (
     });
 
     return verificationToken;
-  } catch (error) {
+  } catch {
     return null;
-  };
-};
+  }
+}
