@@ -9,7 +9,7 @@ export const getTwoFactorConfirmationByUserId = async (
     });
 
     return twoFactorConfirmation;
-  } catch (error) {
-    
-  };
+  } catch {
+    return null;
+  }
 };

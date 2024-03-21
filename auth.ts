@@ -14,7 +14,7 @@ export const {
   signIn,
   signOut,
   update,
-} = NextAuth({
+}: any = NextAuth({
   pages: {
     signIn: "/auth/login",
     error: "/auth/error",
@@ -32,7 +32,7 @@ export const {
       // Allow OAuth without email verification
       if (account?.provider !== "credentials") return true;
 
-      const existingUser = await getUserById(user.id);
+      const existingUser = await getUserById(user.id as string);
 
       // Prevent sign in without email verification
       if (!existingUser?.emailVerified) return false;
@@ -64,7 +64,7 @@ export const {
       }
 
       if (session.user) {
-        session.user.name = token.name;
+        session.user.name = token.name as string;
         session.user.email = token.email as string;
         session.user.isOAuth = token.isOAuth as boolean;
       }

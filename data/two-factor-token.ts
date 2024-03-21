@@ -6,9 +6,10 @@ export const getTwoFactorTokenByToken = async (token: string) => {
       where: { token }
     });
 
+    return twoFactorToken;
   } catch {
     return null;
-  };
+  }
 };
 
 export const getTwoFactorTokenByEmail = async (email: string) => {
@@ -16,8 +17,9 @@ export const getTwoFactorTokenByEmail = async (email: string) => {
     const twoFactorToken = await db.twoFactorToken.findFirst({
       where: { email }
     });
-    
+
+    return twoFactorToken;
   } catch {
     return null;
-  };
+  }
 };

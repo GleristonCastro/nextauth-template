@@ -4,6 +4,6 @@ const NewVerificationPage = () => {
   return (
     <NewVerificationForm />
   );
-};
+}
 
-export default NewVerificationPage
+export default NewVerificationPage;

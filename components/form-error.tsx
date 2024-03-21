@@ -1,7 +1,7 @@
 import { ExclamationTriangleIcon } from "@radix-ui/react-icons";
 
 interface FormErrorProps {
-  message?: string
+  message?: string;
 };
 
 export const FormError = ({
@@ -14,5 +14,5 @@ export const FormError = ({
       <ExclamationTriangleIcon className="h-4 w-4" />
       <p>{message}</p>
     </div>
-  )
-}
+  );
+};

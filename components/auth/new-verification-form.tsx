@@ -4,8 +4,8 @@ import { useCallback, useEffect, useState } from "react";
 import { BeatLoader } from "react-spinners";
 import { useSearchParams } from "next/navigation";
 
-import { NewVerification } from "@/actions/new-verification";
-import  CardWrapper from "@/components/auth/card-wrapper";
+import { newVerification } from "@/actions/new-verification";
+import { CardWrapper } from "@/components/auth/card-wrapper";
 import { FormError } from "@/components/form-error";
 import { FormSuccess } from "@/components/form-success";
 
@@ -23,12 +23,12 @@ export const NewVerificationForm = () => {
     if (!token) {
       setError("Missing token!");
       return;
-    };
+    }
 
-    NewVerification(token)
+    newVerification(token)
       .then((data) => {
         setSuccess(data.success);
-        setError(data.error)
+        setError(data.error);
       })
       .catch(() => {
         setError("Something went wrong!");
@@ -36,8 +36,8 @@ export const NewVerificationForm = () => {
   }, [token, success, error]);
 
   useEffect(() => {
-    onSubmit()
-  }, [onSubmit])
+    onSubmit();
+  }, [onSubmit]);
 
   return (
     <CardWrapper

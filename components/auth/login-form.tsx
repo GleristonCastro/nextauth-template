@@ -1,9 +1,8 @@
 "use client";
 
 import * as z from "zod";
-
-import { useState, useTransition } from "react";
 import { useForm } from "react-hook-form";
+import { useState, useTransition } from "react";
 import { useSearchParams } from "next/navigation";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Link from "next/link";
@@ -16,17 +15,20 @@ import {
   FormField,
   FormItem,
   FormLabel,
-  FormMessage
+  FormMessage,  
 } from "@/components/ui/form";
-import CardWrapper from "@/components/auth/card-wrapper";
+import { CardWrapper } from "@/components/auth/card-wrapper"
 import { Button } from "@/components/ui/button";
 import { FormError } from "@/components/form-error";
 import { FormSuccess } from "@/components/form-success";
 import { login } from "@/actions/login";
 
-const LoginForm = () => {
+export const LoginForm = () => {
   const searchParams = useSearchParams();
-  const urlError = searchParams.get("error") === "OAuthAccountNotLinked" ? "Email already in use with different provider!" : ""
+  const callbackUrl = searchParams.get("callbackUrl");
+  const urlError = searchParams.get("error") === "OAuthAccountNotLinked"
+    ? "Email already in use with different provider!"
+    : "";
 
   const [showTwoFactor, setShowTwoFactor] = useState(false);
   const [error, setError] = useState<string | undefined>("");
@@ -37,29 +39,29 @@ const LoginForm = () => {
     resolver: zodResolver(LoginSchema),
     defaultValues: {
       email: "",
-      password: ""
+      password: "",
     },
   });
 
   const onSubmit = (values: z.infer<typeof LoginSchema>) => {
     setError("");
     setSuccess("");
-
+    
     startTransition(() => {
-      login(values)
+      login(values, callbackUrl)
         .then((data) => {
           if (data?.error) {
             form.reset();
             setError(data.error);
-          };
+          }
 
           if (data?.success) {
             form.reset();
             setSuccess(data.success);
-          };
+          }
 
           if (data?.twoFactor) {
-            setShowTwoFactor(true)
+            setShowTwoFactor(true);
           }
         })
         .catch(() => setError("Something went wrong"));
@@ -69,34 +71,34 @@ const LoginForm = () => {
   return (
     <CardWrapper
       headerLabel="Welcome back"
-      backButtonLabel="Don't have a account"
+      backButtonLabel="Don't have an account?"
       backButtonHref="/auth/register"
       showSocial
     >
       <Form {...form}>
-        <form
+        <form 
           onSubmit={form.handleSubmit(onSubmit)}
           className="space-y-6"
         >
           <div className="space-y-4">
             {showTwoFactor && (
               <FormField
-              control={form.control}
-              name="code"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Two Factor Code</FormLabel>
-                  <FormControl>
-                    <Input
-                      {...field}
-                      disabled={isPending}
-                      placeholder="123456"
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+                control={form.control}
+                name="code"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Two Factor Code</FormLabel>
+                    <FormControl>
+                      <Input
+                        {...field}
+                        disabled={isPending}
+                        placeholder="123456"
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
             )}
             {!showTwoFactor && (
               <>
@@ -138,9 +140,7 @@ const LoginForm = () => {
                         asChild
                         className="px-0 font-normal"
                       >
-                        <Link
-                          href="/auth/reset"
-                        >
+                        <Link href="/auth/reset">
                           Forgot password?
                         </Link>
                       </Button>
@@ -148,9 +148,8 @@ const LoginForm = () => {
                     </FormItem>
                   )}
                 />
-              </>
-              )
-            }
+            </>
+          )}
           </div>
           <FormError message={error || urlError} />
           <FormSuccess message={success} />
@@ -164,7 +163,5 @@ const LoginForm = () => {
         </form>
       </Form>
     </CardWrapper>
-  )
-}
-
-export default LoginForm;
+  );
+};

@@ -2,32 +2,32 @@
 
 import { db } from "@/lib/db";
 import { getUserByEmail } from "@/data/user";
-import { getVerificationTokenByToken } from "@/data/verification-token";
+import { getVerificationTokenByToken } from "@/data/verificiation-token";
 
-export const NewVerification = async (token: string) => {
+export const newVerification = async (token: string) => {
   const existingToken = await getVerificationTokenByToken(token);
 
-  if(!existingToken) {
+  if (!existingToken) {
     return { error: "Token does not exist!" };
-  };
+  }
 
   const hasExpired = new Date(existingToken.expires) < new Date();
 
   if (hasExpired) {
-    return { error: "Token has experired!" }
-  };
+    return { error: "Token has expired!" };
+  }
 
   const existingUser = await getUserByEmail(existingToken.email);
 
   if (!existingUser) {
-    return { error: "Email does not exist!" }
-  };
+    return { error: "Email does not exist!" };
+  }
 
   await db.user.update({
-    where: { id: existingUser.id},
+    where: { id: existingUser.id },
     data: {
       emailVerified: new Date(),
-      email: existingToken.email
+      email: existingToken.email,
     }
   });
 
@@ -35,5 +35,5 @@ export const NewVerification = async (token: string) => {
     where: { id: existingToken.id }
   });
 
-  return { success: "Email verified!"}
+  return { success: "Email verified!" };
 };

@@ -7,13 +7,11 @@ const ClientPage = () => {
   const user = useCurrentUser();
 
   return (
-    <div>
-      <UserInfo
-        label="Client component"
-        user={user}
-      />
-    </div>
-  )
+    <UserInfo
+      label="📱 Client component"
+      user={user}
+    />
+  );
 }
 
-export default ClientPage
+export default ClientPage;
