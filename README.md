@@ -2,6 +2,8 @@
 
 ![image](nexthauth5preview.gif)
 
+[Click to access preview](https://nextauthv5.gleristoncastro.com.br/)
+
 This is a repository for Next Auth v5
 
 Key Features:
@@ -88,10 +90,15 @@ Note: The database used was PostgreSQL. To create the system, a Docker image was
 npm run dev
 ```
 
-## Available commands
+### Available commands
 
 Running commands with npm `npm run [command]`
 
 | command         | description                              |
 | :-------------- | :--------------------------------------- |
 | `dev`           | Starts a development instance of the app |
+
+### Hosting demonstration
+
+- Application - [Vercel](https://vercel.com/)
+- PostgreSQL - [Railway](https://railway.app/)
